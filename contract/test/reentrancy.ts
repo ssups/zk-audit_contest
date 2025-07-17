@@ -29,6 +29,16 @@ describe("example", () => {
   });
 
   it("verify example", async () => {
+    console.log(
+      entry.interface.encodeFunctionData("simulate", [
+        await targetContract.getAddress(),
+        await exploitContract.getAddress(),
+        exploitContract.interface.encodeFunctionData("exploit", [
+          await targetContract.getAddress(),
+        ]),
+      ])
+    );
+
     const result = await ethers.provider.call({
       to: await entry.getAddress(),
       data: entry.interface.encodeFunctionData("simulate", [
